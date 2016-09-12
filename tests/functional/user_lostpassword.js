@@ -1,10 +1,10 @@
 import expect from 'expect';
-import browser from 'zombie';
+import Browser from 'zombie';
 
 const browser = new Browser();
 
 describe('[user lostpassword]', function() {
- 	
+	
 	// before: setup a user in the users table
 	
 	describe('user visits the app page', () => {
@@ -26,7 +26,7 @@ describe('[user lostpassword]', function() {
 	describe('user submits login form with an existent username', () => {
 		it('should see the lostpassword confirm page');
 	});
- 
+
 	//
 	
 });

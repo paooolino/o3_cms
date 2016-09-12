@@ -1,10 +1,10 @@
 import expect from 'expect';
-import browser from 'zombie';
+import Browser from 'zombie';
 
 const browser = new Browser();
 
 describe('[user register]', function() {
- 	
+	
 	// before: setup a user in the users table
 	
 	describe('user visits the app page', () => {
@@ -30,7 +30,7 @@ describe('[user register]', function() {
 	describe('user submits register form with a non existent username', () => {
 		it('should see the registration confirm page');
 	});
- 
+
 	//
 	
 });

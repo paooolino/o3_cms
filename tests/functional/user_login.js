@@ -1,10 +1,10 @@
 import expect from 'expect';
-import browser from 'zombie';
+import Browser from 'zombie';
 
 const browser = new Browser();
 
 describe('[user login]', function() {
- 	
+	
 	// before: setup a user in the users table
 	
 	describe('user visits the app page', () => {
@@ -23,7 +23,7 @@ describe('[user login]', function() {
 	describe('user submits login form with correct credentials', () => {
 		it('should see the main dashboard page');
 	});
- 
+	
 	//
 	
 });

@@ -4,10 +4,10 @@ const LoginForm = () => {
 	return (
 		<form>
 			<div>
-				<input name="usr" />
+				user <input name="usr" />
 			</div>
 			<div>
-				<input name="pwd" />
+				pwd <input name="pwd" />
 			</div>
 			<div>
 				<button>Send</button>

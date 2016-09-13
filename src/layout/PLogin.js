@@ -1,9 +1,11 @@
 import React from 'react';
 
+import LoginForm from '../components/O3LoginForm';
+
 const PLogin = () => {
 	return (
 		<div>
-			PLogin
+			<LoginForm id="loginform" />
 		</div>
 	);
 };

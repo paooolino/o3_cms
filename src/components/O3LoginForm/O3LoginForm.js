@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const LoginForm = (props) => {
 	return (
-			<form id={props.id}>
+			<form id={props.id} onSubmit={props.handleSubmit}>
 			<div className="formRow">
 				<div className="formLabel">
 					user 
@@ -29,7 +29,8 @@ const LoginForm = (props) => {
 };
 
 LoginForm.propTypes = {
-	//
+	id: PropTypes.string.isRequired,
+	handleSubmit: PropTypes.func.isRequired
 };
 
 export default LoginForm;

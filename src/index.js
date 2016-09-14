@@ -24,7 +24,11 @@ import PDashboard from './layout/PDashboard';
 	store setup
 */
 
-const reducer = (state={}, action) => state;
+const initialState = {
+	usrValue: '',
+	passValue: ''
+};
+const reducer = (state=initialState, action) => state;
 const store = createStore(combineReducers({
 	reducer,
 	routing: routerReducer

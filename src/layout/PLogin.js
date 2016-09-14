@@ -1,11 +1,14 @@
 import React from 'react';
 
-import LoginForm from '../components/O3LoginForm';
+import LoginForm from '../components/LoginForm';
 
 const PLogin = () => {
 	return (
 		<div>
-			<LoginForm id="loginform" />
+			<LoginForm 
+				id="loginform" 
+				lostPasswordLink="/lost-password"
+			/>
 		</div>
 	);
 };

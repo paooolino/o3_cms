@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 	internal imports
 */
 
-import { login_submit, usrValue_change, passValue_change } from '../../actionCreators';
+import { login_submit, usrValue_change, passValue_change } from '../../redux/modules/login';
 import LoginForm from './LoginForm';
 
 /*
@@ -36,8 +36,8 @@ const mapDispatchToProps = function(dispatch) {
 
 const mapStateToProps = (state) => {
 	return {
-		usrValue: state.reducer.usrValue,
-		passValue: state.reducer.passValue
+		usrValue: state.login.usrValue,
+		passValue: state.login.passValue
 	};
 };
 

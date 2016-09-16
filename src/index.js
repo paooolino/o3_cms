@@ -4,7 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
@@ -13,7 +13,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
   internal imports
 */
 
-import reducer from './reducer';
+import login from './redux/modules/login';
 import MainLayout from './layout/MainLayout';
 import PHome from './layout/PHome';
 import PLogin from './layout/PLogin';
@@ -22,16 +22,20 @@ import PLostPassword from './layout/PLostPassword';
 import PDashboard from './layout/PDashboard';
 
 /*
-	store setup
+	combining reducers
 */
 
 let store = createStore(combineReducers({
-	reducer,
+	login,
 	routing: routerReducer
 }));
-let history = syncHistoryWithStore(browserHistory, store)
+// store.subscribe(() =>	console.log(store.getState()));
 
-//store.subscribe(() =>	console.log(store.getState()));
+/*
+	sync route<=>store
+*/
+
+let history = syncHistoryWithStore(browserHistory, store);
 
 /*
   app render
@@ -51,5 +55,3 @@ ReactDOM.render(
 	</Provider>,
 	document.querySelectorAll('#rootElement')[0]
 );
-
-

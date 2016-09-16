@@ -1,11 +1,12 @@
+/*
+  internal imports
+*/
 
-const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
-const USRVALUE_CHANGE = 'USRVALUE_CHANGE';
-const PASSVALUE_CHANGE = 'PASSVALUE_CHANGE';
+import * as actions from './actionTypes';
 
 export const login_submit = (usrValue, passValue) => {
 	return {
-		type: LOGIN_SUBMIT,
+		type: actions.LOGIN_SUBMIT,
 		usrValue,
 		passValue
 	};
@@ -13,14 +14,14 @@ export const login_submit = (usrValue, passValue) => {
 
 export const usrValue_change = (v) => {
 	return {
-		type: USRVALUE_CHANGE,
+		type: actions.USRVALUE_CHANGE,
 		v
 	};
 };
 
 export const passValue_change = (v) => {
 	return {
-		type: PASSVALUE_CHANGE,
+		type: actions.PASSVALUE_CHANGE,
 		v
 	};
 };

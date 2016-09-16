@@ -13,6 +13,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
   internal imports
 */
 
+import reducer from './reducer';
 import MainLayout from './layout/MainLayout';
 import PHome from './layout/PHome';
 import PLogin from './layout/PLogin';
@@ -24,16 +25,13 @@ import PDashboard from './layout/PDashboard';
 	store setup
 */
 
-const initialState = {
-	usrValue: '',
-	passValue: ''
-};
-const reducer = (state=initialState, action) => state;
-const store = createStore(combineReducers({
+let store = createStore(combineReducers({
 	reducer,
 	routing: routerReducer
 }));
-const history = syncHistoryWithStore(browserHistory, store)
+let history = syncHistoryWithStore(browserHistory, store)
+
+//store.subscribe(() =>	console.log(store.getState()));
 
 /*
   app render

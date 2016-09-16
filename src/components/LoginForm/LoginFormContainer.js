@@ -21,6 +21,7 @@ const mapDispatchToProps = function(dispatch) {
 			dispatch(login_submit(usrValue, passValue));
 		},
 		handle_usrValue_change: (evt) => {
+			console.log(evt.target.value);
 			dispatch(usrValue_change(evt.target.value));
 		},
 		handle_passValue_change: (evt) => {

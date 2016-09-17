@@ -4,7 +4,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
@@ -14,6 +15,8 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 */
 
 import login from './redux/modules/login';
+import register from './redux/modules/register';
+//import lostPassword from './redux/modules/lostPassword';
 import MainLayout from './layout/MainLayout';
 import PHome from './layout/PHome';
 import PLogin from './layout/PLogin';
@@ -27,6 +30,8 @@ import PDashboard from './layout/PDashboard';
 
 let store = createStore(combineReducers({
 	login,
+	register,
+	//lostPassword,
 	routing: routerReducer
 }));
 // store.subscribe(() =>	console.log(store.getState()));

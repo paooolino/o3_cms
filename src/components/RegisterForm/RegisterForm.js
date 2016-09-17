@@ -5,7 +5,7 @@ const RegisterForm = (props) => {
 	return (
 		<form id={props.id} onSubmit={(evt) => {
 				evt.preventDefault();
-				props.handle_register_submit({
+				props.handle_register_submit(
 					usrValue: props.usrValue, 
 					passValue: props.passValue,
 					pass2Value: props.pass2Value
@@ -65,7 +65,7 @@ RegisterForm.propTypes = {
 	// handlers
 	handle_register_submit: PropTypes.func.isRequired,
 	handle_usrValue_change: PropTypes.func.isRequired,
-	handle_passValue_change: PropTypes.func.isRequired
+	handle_passValue_change: PropTypes.func.isRequired,
 	handle_pass2Value_change: PropTypes.func.isRequired
 };
 

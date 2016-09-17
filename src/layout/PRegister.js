@@ -1,9 +1,13 @@
 import React from 'react';
 
+import RegisterForm from '../components/RegisterForm';
+
 const PRegister = () => {
 	return (
 		<div>
-			PRegister
+			<RegisterForm 
+				id="registerForm"
+			/>
 		</div>
 	);
 };

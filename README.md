@@ -1,5 +1,13 @@
 # o3_cms
 
+## prerequisites
+
+You should have installed globally:
+- nodejs
+- webpack
+- mocha
+- babel-register
+
 ## testing
 
 	npm test

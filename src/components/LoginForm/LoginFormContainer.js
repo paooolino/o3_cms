@@ -53,4 +53,5 @@ const LoginFormContainer = connect(
 	export
 */
 
+export { LoginForm }; 
 export default LoginFormContainer;

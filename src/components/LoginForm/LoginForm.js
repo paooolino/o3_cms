@@ -1,45 +1,42 @@
 import React, {PropTypes} from 'react';
-import { Link } from 'react-router';
 
-const LoginForm = (props) => {
-	return (
-		<form id={props.id} onSubmit={(evt) => {
-				evt.preventDefault();
-				props.handle_login_submit(props.usrValue, props.passValue)}
-			}>
-			<div className="formRow">
-				<div className="formLabel">
-					user 
-				</div>
-				<div className="formField">
-					<input name="usr" 
-						value={props.usrValue}
-						onChange={props.handle_usrValue_change}
-					/>
-				</div>
+const LoginForm = (props) => (
+	<form id={props.id} onSubmit={(evt) => {
+			evt.preventDefault();
+			props.handle_login_submit(props.usrValue, props.passValue)}
+		}>
+		<div className="formRow">
+			<div className="formLabel">
+				user 
 			</div>
-			<div className="formRow">
-				<div className="formLabel">
-					pwd
-				</div>
-				<div className="formField">
-					<input type="password" name="pwd" 
-						value={props.passValue}
-						onChange={props.handle_passValue_change}
-					/>
-				</div>
+			<div className="formField">
+				<input name="usr" 
+					value={props.usrValue}
+					onChange={props.handle_usrValue_change}
+				/>
 			</div>
-			<div className="formRow">
-				<div className="formField">
-					<button>Send</button>
-				</div>
+		</div>
+		<div className="formRow">
+			<div className="formLabel">
+				pwd
 			</div>
-			<div className="formRow">
-				<Link to={props.lostPasswordLink}>Lost password?</Link>
+			<div className="formField">
+				<input type="password" name="pwd" 
+					value={props.passValue}
+					onChange={props.handle_passValue_change}
+				/>
 			</div>
-		</form>
-	);
-};
+		</div>
+		<div className="formRow">
+			<div className="formField">
+				<button>Send</button>
+			</div>
+		</div>
+		<div className="formRow">
+			{props.lostPasswordLink}
+		</div>
+	</form>
+);
 
 LoginForm.propTypes = {
 	// ownProps

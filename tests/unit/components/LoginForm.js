@@ -1,27 +1,154 @@
+/**
+	React is required by Enzyme rendering functions.
+*/
+
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+
+/**
+	We'll use shallow from enzyme to test the components.
+*/
+
+import { shallow } from 'enzyme';
+
+/**
+	Assertion library
+*/
+
+import expect from 'expect';
+
+/**
+	This is the functional stateless component to test.
+*/
+
 import LoginForm from '../../../src/components/LoginForm/LoginForm';
 
-const wrapper = shallow(<LoginForm />);
+/**
+	An helper function to build an Enzyme wrapper around the component.
+*/
+
+const createWrapper = (attrs) => {
+
+	/**
+		This is the default state for the component.
+	*/
+
+	const defaultState = {
+		isSubmitting: false,
+		isError: false,
+		errorMessage: '',
+		controlledFieldsValues: {
+			user: '',
+			pass: ''
+		},
+		submit_handler: function(){},
+		controlled_fields_handler: function(){}
+	};
+
+	/**
+		If input attributes exists, we modify the default values for the state.
+	*/
+	
+	const state = {
+		...defaultState,
+		...attrs
+	};
+	
+	/**
+		Set the own properties to pass.
+	*/
+	
+	const lostPasswordLink = (<a name="lostPasswordLink" href="/lost-password">lost password?</a>);
+	
+	/**
+		Return the Enzyme shallow wrapper.
+	*/
+	
+	return shallow(
+		<LoginForm 
+			className="myLoginForm"
+			lostPasswordLink={lostPasswordLink}
+			{...state}
+		/>
+	);
+}
+
+/**
+	This is where the Mocha describe blocks begin.
+	Each describe block may have other describe blocks inside.
+	The single tests are defined by the "it" blocks.
+*/
 
 describe('LoginForm', function(){
+	
+	/**
+		The rendering section tests the existence of dom elements
+		and how they look or behave by checking their props.
+	*/
+	
 	describe('Rendering', function(){
-		xit('should render the username field', function(){
-			
+		
+		const defaultWrapper = createWrapper();
+		const submittingWrapper = createWrapper({isSubmitting: true});
+		const errorWrapper = createWrapper({isError: true, errorMessage: 'My awesome error'});
+		const controlledWrapper = createWrapper({controlledFieldsValues: {
+			user: 'my@example.com',
+			pass: '123456'
+		}});
+		
+		it('should have the proper class', function(){
+			expect(defaultWrapper.find('.myLoginForm').length).toBe(1);
 		});
-		xit('should render the password field', function(){
-			
+		it('should render the username field', function(){
+			expect(defaultWrapper.find('input[name="user"]').length).toBe(1);
 		});
-		xit('should render the login button', function(){
-			
+		it('should render the password field', function(){
+			expect(defaultWrapper.find('input[name="pass"]').length).toBe(1);
 		});
-		xit('should render the lost password link', function(){
-			
+		it('should render the login button', function(){
+			expect(defaultWrapper.find('button[name="login"]').length).toBe(1);
+		});
+		it('should render the lost password link', function(){
+			expect(defaultWrapper.find('a[name="lostPasswordLink"]').length).toBe(1);
+		});
+		it('should disable the login button when submitting', function(){
+			expect(defaultWrapper.find('button[name="login"]').prop('disabled')).toBe(false);
+			expect(submittingWrapper.find('button[name="login"]').prop('disabled')).toBe('disabled');
+		});
+		it('should render the loading icon when submitting', function(){
+			expect(defaultWrapper.find('img.loadingIcon').length).toBe(0);
+			expect(submittingWrapper.find('img.loadingIcon').length).toBe(1);
+		});
+		it('should render an error message if something went wrong', function(){
+			expect(defaultWrapper.find('.errorMessage').length).toBe(0);
+			expect(errorWrapper.find('.errorMessage').length).toBe(1);
+			expect(errorWrapper.find('.errorMessage').text()).toBe('My awesome error');
+		});
+		it('should render the correct values in controlled inputs', function(){
+			expect(controlledWrapper.find('input[name="user"]').props().value).toBe('my@example.com');
+			expect(controlledWrapper.find('input[name="pass"]').props().value).toBe('123456');
 		});
 	});
+	
+	/**
+		In the behavious section we check if the handlers are called with proper arguments.
+		We set a unique controlled_fields_handler function to be called for every field.
+	*/
+	
 	describe('Behaviour', function(){
-		xit('should call the submit_handler function', function(){
-			
+		it('should call the submit_handler function', function(){
+			const submit_handler = expect.createSpy();
+			createWrapper({submit_handler}).find('button[name="login"]').simulate('click');
+			expect(submit_handler).toHaveBeenCalled();
+		});
+		it('should call the controlled_fields_handler function on username field', function(){
+			const controlled_fields_handler = expect.createSpy();
+			createWrapper({controlled_fields_handler}).find('input[name="user"]').simulate('change');
+			expect(controlled_fields_handler).toHaveBeenCalled();			
+		});
+		it('should call the controlled_fields_handler function on password field', function(){
+			const controlled_fields_handler = expect.createSpy();
+			createWrapper({controlled_fields_handler}).find('input[name="pass"]').simulate('change');
+			expect(controlled_fields_handler).toHaveBeenCalled();			
 		});
 	});
 });

@@ -1,18 +1,15 @@
 import React, {PropTypes} from 'react';
 
 const LoginForm = (props) => (
-	<form id={props.id} onSubmit={(evt) => {
-			evt.preventDefault();
-			props.handle_login_submit(props.usrValue, props.passValue)}
-		}>
+	<div className={props.className}>
 		<div className="formRow">
 			<div className="formLabel">
 				user 
 			</div>
 			<div className="formField">
-				<input name="usr" 
-					value={props.usrValue}
-					onChange={props.handle_usrValue_change}
+				<input name="user" 
+					value={props.controlledFieldsValues.user}
+					onChange={props.controlled_fields_handler}
 				/>
 			</div>
 		</div>
@@ -21,36 +18,48 @@ const LoginForm = (props) => (
 				pwd
 			</div>
 			<div className="formField">
-				<input type="password" name="pwd" 
-					value={props.passValue}
-					onChange={props.handle_passValue_change}
+				<input type="password" name="pass" 
+					value={props.controlledFieldsValues.pass}
+					onChange={props.controlled_fields_handler}
 				/>
 			</div>
 		</div>
 		<div className="formRow">
 			<div className="formField">
-				<button>Send</button>
+				<button 
+					disabled={props.isSubmitting ? 'disabled' : false} 
+					name="login"
+					onClick={() => { props.submit_handler(props.usrValue, props.passValue); }}
+				>
+					Send
+				</button>
+				{props.isSubmitting && <img className="loadingIcon" src="images/loadingIcon.png" />}
+				{props.isError && <div className="errorMessage">{props.errorMessage}</div> }
 			</div>
 		</div>
 		<div className="formRow">
 			{props.lostPasswordLink}
 		</div>
-	</form>
+	</div>
 );
 
 LoginForm.propTypes = {
 	// ownProps
-	id: PropTypes.string.isRequired,
-	lostPasswordLink: PropTypes.string.isRequired,
+	className: PropTypes.string.isRequired,
+	lostPasswordLink: PropTypes.object.isRequired,
 	
 	// state
-	usrValue: PropTypes.string.isRequired,
-	passValue: PropTypes.string.isRequired,
+	isSubmitting: PropTypes.bool.isRequired,
+	isError: PropTypes.bool.isRequired,
+	errorMessage: PropTypes.string.isRequired,
+	controlledFieldsValues: PropTypes.shape({
+		user: PropTypes.string.isRequired,
+		pass: PropTypes.string.isRequired
+	}).isRequired,
 	
 	// handlers
-	handle_login_submit: PropTypes.func.isRequired,
-	handle_usrValue_change: PropTypes.func.isRequired,
-	handle_passValue_change: PropTypes.func.isRequired
+	submit_handler: PropTypes.func.isRequired,
+	controlled_fields_handler: PropTypes.func.isRequired
 };
 
 export default LoginForm;

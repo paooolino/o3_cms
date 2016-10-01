@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 
 const LoginForm = (props) => (
-	<div className={props.className}>
+	<div className="loginForm">
 		<div className="formRow">
 			<div className="formLabel">
 				user 
@@ -33,24 +33,19 @@ const LoginForm = (props) => (
 				>
 					Send
 				</button>
-				{props.isSubmitting && <img className="loadingIcon" src="images/loadingIcon.png" />}
-				{props.isError && <div className="errorMessage">{props.errorMessage}</div> }
+				{props.isSubmitting && <img className="loadingIcon" src="/images/loadingIcon.png" />}
+				{props.errorMessage != '' && <div className="errorMessage">{props.errorMessage}</div> }
 			</div>
 		</div>
 		<div className="formRow">
-			{props.lostPasswordLink}
+			<a name="lostPasswordLink" href="/lost-password">Lost password?</a>
 		</div>
 	</div>
 );
 
 LoginForm.propTypes = {
-	// ownProps
-	className: PropTypes.string.isRequired,
-	lostPasswordLink: PropTypes.object.isRequired,
-	
 	// state
 	isSubmitting: PropTypes.bool.isRequired,
-	isError: PropTypes.bool.isRequired,
 	errorMessage: PropTypes.string.isRequired,
 	controlledFieldsValues: PropTypes.shape({
 		user: PropTypes.string.isRequired,

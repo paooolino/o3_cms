@@ -34,7 +34,6 @@ const createWrapper = (attrs) => {
 
 	const defaultState = {
 		isSubmitting: false,
-		isError: false,
 		errorMessage: '',
 		controlledFieldsValues: {
 			user: '',
@@ -52,23 +51,13 @@ const createWrapper = (attrs) => {
 		...defaultState,
 		...attrs
 	};
-	
-	/**
-		Set the own properties to pass.
-	*/
-	
-	const lostPasswordLink = (<a name="lostPasswordLink" href="/lost-password">lost password?</a>);
-	
+
 	/**
 		Return the Enzyme shallow wrapper.
 	*/
 	
 	return shallow(
-		<LoginForm 
-			className="myLoginForm"
-			lostPasswordLink={lostPasswordLink}
-			{...state}
-		/>
+		<LoginForm {...state}	/>
 	);
 }
 
@@ -89,15 +78,12 @@ describe('LoginForm', function(){
 		
 		const defaultWrapper = createWrapper();
 		const submittingWrapper = createWrapper({isSubmitting: true});
-		const errorWrapper = createWrapper({isError: true, errorMessage: 'My awesome error'});
+		const errorWrapper = createWrapper({errorMessage: 'My awesome error'});
 		const controlledWrapper = createWrapper({controlledFieldsValues: {
 			user: 'my@example.com',
 			pass: '123456'
 		}});
 		
-		it('should have the proper class', function(){
-			expect(defaultWrapper.find('.myLoginForm').length).toBe(1);
-		});
 		it('should render the username field', function(){
 			expect(defaultWrapper.find('input[name="user"]').length).toBe(1);
 		});
@@ -107,20 +93,16 @@ describe('LoginForm', function(){
 		it('should render the login button', function(){
 			expect(defaultWrapper.find('button[name="login"]').length).toBe(1);
 		});
-		it('should render the lost password link', function(){
-			expect(defaultWrapper.find('a[name="lostPasswordLink"]').length).toBe(1);
-		});
 		it('should disable the login button when submitting', function(){
 			expect(defaultWrapper.find('button[name="login"]').prop('disabled')).toBe(false);
 			expect(submittingWrapper.find('button[name="login"]').prop('disabled')).toBe('disabled');
 		});
-		it('should render the loading icon when submitting', function(){
+		it('should render the loading icon only when submitting', function(){
 			expect(defaultWrapper.find('img.loadingIcon').length).toBe(0);
 			expect(submittingWrapper.find('img.loadingIcon').length).toBe(1);
 		});
-		it('should render an error message if something went wrong', function(){
+		it('should render an error message only if something went wrong', function(){
 			expect(defaultWrapper.find('.errorMessage').length).toBe(0);
-			expect(errorWrapper.find('.errorMessage').length).toBe(1);
 			expect(errorWrapper.find('.errorMessage').text()).toBe('My awesome error');
 		});
 		it('should render the correct values in controlled inputs', function(){

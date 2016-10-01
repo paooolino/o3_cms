@@ -1,24 +1,16 @@
 import React, {PropTypes} from 'react';
-import { Link } from 'react-router';
 
 const RegisterForm = (props) => {
 	return (
-		<form id={props.id} onSubmit={(evt) => {
-				evt.preventDefault();
-				props.handle_register_submit(
-					usrValue: props.usrValue, 
-					passValue: props.passValue,
-					pass2Value: props.pass2Value
-				)}
-			}>
+		<div className="registerForm">
 			<div className="formRow">
 				<div className="formLabel">
 					username
 				</div>
 				<div className="formField">
-					<input name="usr" 
-						value={props.usrValue}
-						onChange={props.handle_usrValue_change}
+					<input name="email" 
+						value={props.controlledFieldsValues.email}
+						onChange={props.controlled_fields_handler}
 					/>
 				</div>
 			</div>
@@ -27,9 +19,9 @@ const RegisterForm = (props) => {
 					password
 				</div>
 				<div className="formField">
-					<input type="password" name="pwd" 
-						value={props.passValue}
-						onChange={props.handle_passValue_change}
+					<input type="password" name="pass" 
+						value={props.controlledFieldsValues.pass}
+						onChange={props.controlled_fields_handler}
 					/>
 				</div>
 			</div>
@@ -38,35 +30,42 @@ const RegisterForm = (props) => {
 					repeat password
 				</div>
 				<div className="formField">
-					<input type="password" name="pwd2" 
-						value={props.pass2Value}
-						onChange={props.handle_pass2Value_change}
+					<input type="password" name="pass2" 
+						value={props.controlledFieldsValues.pass2}
+						onChange={props.controlled_fields_handler}
 					/>
 				</div>
 			</div>
 			<div className="formRow">
 				<div className="formField">
-					<button>Send</button>
+					<button 
+						disabled={props.isSubmitting ? 'disabled' : false} 
+						onClick={props.submit_handler} 
+						name="register"
+					>
+						Send
+					</button>
+					{props.isSubmitting && <img className="loadingIcon" src="/images/loadingIcon.png" />}
+					{props.errorMessage != '' && <div className="errorMessage">{props.errorMessage}</div>}
 				</div>
 			</div>
-		</form>
+		</div>
 	);
 };
 
 RegisterForm.propTypes = {
-	// ownProps
-	id: PropTypes.string.isRequired,
-	
 	// state
-	usrValue: PropTypes.string.isRequired,
-	passValue: PropTypes.string.isRequired,
-	pass2Value: PropTypes.string.isRequired,
-	
+	isSubmitting: PropTypes.bool.isRequired,
+	errorMessage: PropTypes.string.isRequired,
+	controlledFieldsValues: PropTypes.shape({
+		email: PropTypes.string.isRequired,
+		pass: PropTypes.string.isRequired,
+		pass2: PropTypes.string.isRequired
+	}).isRequired,
+		
 	// handlers
-	handle_register_submit: PropTypes.func.isRequired,
-	handle_usrValue_change: PropTypes.func.isRequired,
-	handle_passValue_change: PropTypes.func.isRequired,
-	handle_pass2Value_change: PropTypes.func.isRequired
+	submit_handler: PropTypes.func.isRequired,
+	controlled_fields_handler: PropTypes.func.isRequired
 };
 
 export default RegisterForm;

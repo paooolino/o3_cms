@@ -1,59 +1,47 @@
 import React, {PropTypes} from 'react';
-import { Link } from 'react-router';
 
-const LoginForm = (props) => {
+const LostPasswordForm = (props) => {
 	return (
-		<form id={props.id} onSubmit={(evt) => {
-				evt.preventDefault();
-				props.handle_login_submit(props.usrValue, props.passValue)}
-			}>
+		<div className="lostPasswordForm">
 			<div className="formRow">
 				<div className="formLabel">
-					user 
+					email
 				</div>
 				<div className="formField">
-					<input name="usr" 
-						value={props.usrValue}
-						onChange={props.handle_usrValue_change}
-					/>
-				</div>
-			</div>
-			<div className="formRow">
-				<div className="formLabel">
-					pwd
-				</div>
-				<div className="formField">
-					<input type="password" name="pwd" 
-						value={props.passValue}
-						onChange={props.handle_passValue_change}
+					<input name="email" 
+						value={props.controlledFieldsValues.email}
+						onChange={props.controlled_fields_handler}
 					/>
 				</div>
 			</div>
 			<div className="formRow">
 				<div className="formField">
-					<button>Send</button>
+					<button 
+						disabled={props.isSubmitting ? 'disabled' : false} 
+						onClick={props.submit_handler} 
+						name="send"
+					>
+						Send
+					</button>
+					{props.isSubmitting && <img className="loadingIcon" src="/images/loadingIcon.png" />}
+					{props.errorMessage != '' && <div className="errorMessage">{props.errorMessage}</div> }
 				</div>
 			</div>
-			<div className="formRow">
-				<Link to={props.lostPasswordLink}>Lost password?</Link>
-			</div>
-		</form>
+		</div>
 	);
 };
 
-LoginForm.propTypes = {
-	// ownProps
-	id: PropTypes.string.isRequired,
-	lostPasswordLink: PropTypes.string.isRequired,
-	
+LostPasswordForm.propTypes = {
 	// state
-	usrValue: PropTypes.string.isRequired,
-	passValue: PropTypes.string.isRequired,
+	isSubmitting: PropTypes.bool.isRequired,
+	errorMessage: PropTypes.string.isRequired,
+	controlledFieldsValues: PropTypes.shape({
+		email: PropTypes.string.isRequired
+	}).isRequired,
 	
 	// handlers
-	handle_login_submit: PropTypes.func.isRequired,
-	handle_usrValue_change: PropTypes.func.isRequired,
-	handle_passValue_change: PropTypes.func.isRequired
+	controlled_fields_handler: PropTypes.func.isRequired,
+	submit_handler: PropTypes.func.isRequired
 };
 
-export default LoginForm;
+export default LostPasswordForm;

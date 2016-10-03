@@ -3,7 +3,8 @@ import React from 'react';
 const PHome = () => {
 	return (
 		<div>
-			PHome
+			<a name="login" href="/login">Login</a>
+			<a name="register" href="/register">Register</a>
 		</div>
 	);
 };

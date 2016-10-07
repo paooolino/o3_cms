@@ -10,6 +10,13 @@
 	<script src="https://d3js.org/d3-hierarchy.v1.min.js"></script>
 	<script>
 	
+	var dataTable = [
+		[11975,  5871, 8916, 2868],
+		[ 1951, 10048, 2060, 6171],
+		[ 8010, 16145, 8090, 8045],
+		[ 1013,   990,  940, 6907]
+	];
+	
 	var data = {
 		name: 'home',
 		children: [{
@@ -34,7 +41,32 @@
 			}]
 		}]
 	};
+
 	
+	// seleziona root
+	d3.select('#root')
+		// appende table
+		.append('table')
+			// seleziona i tr (zero)
+			.selectAll('tr')
+				// associa i dati
+				.data(dataTable)
+				// prendo la selezione enter (4)
+				.enter()
+					// vi appendo i tr
+					.append('tr')
+					// seleziono i td (zero)
+					.selectAll('td')
+						// associa i dati già presenti
+						.data(function(d){ return d; })
+						// prendo la selezione enter (4)
+						.enter()
+							// vi appendo i td
+							.append('td')
+							// visualizzo il dato già presente
+							.text(function(d){ return d; });
+
+
 	/*
 	var treeLayout = d3.tree();
 	var myNodes = treeLayout(data);
@@ -42,10 +74,10 @@
 	*/
 	
 	// ottengo un root node con hierarchy
-	var tree = d3.tree();
+	/*var tree = d3.tree();
 	var root = d3.hierarchy(data);
 	console.log(tree(root));
-	
+	*/
 
 	</script>
 </body>

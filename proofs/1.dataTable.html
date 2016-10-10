@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+	
+	<div id="root"></div>
+	
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/d3-hierarchy.v1.min.js"></script>
+	<script>
+
+	var dataTable = [
+		[11975,  5871, 8916, 2868],
+		[ 1951, 10048, 2060, 6171],
+		[ 8010, 16145, 8090, 8045],
+		[ 1013,   990,  940, 6907]
+	];
+	
+	// seleziona root
+	d3.select('#root')
+		// appende table > seleziona table
+		.append('table')
+		// seleziona tutti i tr
+		.selectAll('tr')
+			// associa i dati a tr
+			.data(dataTable)
+			// seleziona gli elementi dei dati che non matchano nessun tr
+			.enter()
+			// per ognuno appende un tr > seleziona tr
+			.append('tr')
+			// seleziona tutti td
+			.selectAll('td')
+				// associa i dati ad ogni td, prendendoli dai dati già associati
+				.data(function(d){ return d; })
+				// seleziona gli elementi dei dati che non matchano nessun td
+				.enter()
+				// vi appende il td
+				.append('td')
+				// vi modifica il testo
+				.text(function(d){ return d; });
+	</script>
+	
+</body>
